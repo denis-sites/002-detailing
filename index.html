@@ -54,7 +54,7 @@ header .btn{padding:12px 24px}
 /* Hero */
 .hero{position:relative;padding:44px 0 44px}
 .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(45% 60% at 80% 40%,rgba(166,107,255,.14),transparent 70%),radial-gradient(40% 50% at 0% 0%,rgba(255,255,255,.04),transparent 60%);pointer-events:none}
-.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
 .pill{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;padding:8px 16px 8px 10px;font:500 14px var(--b);color:#dedce2}
 .pill .st{white-space:nowrap;background:var(--star);color:#111;border-radius:999px;padding:2px 9px;font:800 13px var(--b)}
 h1{font-family:var(--d);font-weight:900;font-size:clamp(44px,4.9vw,70px);line-height:1;letter-spacing:-.03em;margin:22px 0 20px;text-transform:uppercase;text-wrap:balance}
@@ -93,17 +93,26 @@ h1 em{font-style:normal;color:var(--acc)}
 .qc .go{display:flex;gap:8px}
 .qc .go .btn{padding:14px 18px}
 
-/* Фото справа */
-.vis{position:relative;height:640px}
-.ph{position:absolute;inset:0 0 0 52px;border-radius:30px;overflow:hidden;box-shadow:0 50px 90px -30px rgba(0,0,0,.9);border:1px solid rgba(255,255,255,.1);background:#15131a}
-.ph img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
-.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.75) 100%)}
-.tag{position:absolute;top:20px;left:74px;z-index:2;font:600 12px var(--b);letter-spacing:.12em;text-transform:uppercase;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 14px}
-.tag i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--acc);margin-right:8px;vertical-align:1px;box-shadow:0 0 10px var(--acc)}
-.thumbs{position:absolute;left:0;top:34%;z-index:3;display:grid;gap:12px}
-.thumbs button{width:112px;height:112px;border-radius:18px;overflow:hidden;border:3px solid var(--bg);box-shadow:0 20px 40px -10px rgba(0,0,0,.8);padding:0;cursor:zoom-in;background:#15131a}
-.thumbs img{width:100%;height:100%;object-fit:cover}
-.quote{position:absolute;left:74px;right:22px;bottom:22px;z-index:2;background:rgba(15,13,19,.88);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:18px 20px}
+/* Фон первого экрана: фото студии, слева затемнено под текст */
+.hero{overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:70% 55%;transform:scale(1.04);animation:bgZoom 18s ease-out forwards}
+.hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,rgba(8,7,11,.93) 34%,rgba(8,7,11,.55) 62%,rgba(8,7,11,.35) 100%),linear-gradient(180deg,rgba(8,7,11,.55) 0%,transparent 25%,transparent 70%,var(--bg) 100%)}
+@keyframes bgZoom{to{transform:scale(1)}}
+/* Справа: парящие фото работ и отзыв */
+.vis{position:relative;height:620px}
+.tag{position:absolute;top:8px;right:0;z-index:2;font:600 12px var(--b);letter-spacing:.12em;text-transform:uppercase;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 14px;backdrop-filter:blur(6px)}
+.tag i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3ddc84;margin-right:8px;vertical-align:1px;box-shadow:0 0 10px #3ddc84}
+.fl{position:absolute;padding:0;border:3px solid rgba(255,255,255,.9);border-radius:22px;overflow:hidden;cursor:zoom-in;background:#15131a;box-shadow:0 40px 70px -20px rgba(0,0,0,.95),0 0 0 1px rgba(0,0,0,.4);animation:float 7s ease-in-out infinite;transition:transform .4s}
+.fl img{width:100%;height:100%;object-fit:cover}
+.fl:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);background-size:250% 100%;animation:glare 6s ease-in-out infinite}
+.f1{width:230px;height:300px;left:4%;top:60px;--r:-6deg}
+.f2{width:200px;height:260px;right:6%;top:96px;--r:5deg;animation-delay:-2.3s}
+.f3{width:170px;height:210px;left:40%;top:250px;--r:-2deg;animation-delay:-4.6s;z-index:2}
+.fl:hover{animation-play-state:paused}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-14px) rotate(var(--r))}}
+@keyframes glare{0%,55%{background-position:150% 0}100%{background-position:-60% 0}}
+.quote{position:absolute;left:6%;right:0;bottom:6px;z-index:3;background:rgba(15,13,19,.82);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:18px 20px}
 .quote .s{color:var(--star);letter-spacing:2px;font-size:13px}
 .quote p{font:500 16px/1.45 var(--b);margin:6px 0 8px}
 .quote small{color:var(--dim);font-size:12.5px}
@@ -146,9 +155,24 @@ h2 em{font-style:normal;color:var(--dim)}
 .s-card .im{aspect-ratio:16/11;overflow:hidden;position:relative;background:#15131a}
 .s-card .im img{width:100%;height:100%;object-fit:cover;object-position:50% 60%;transition:transform .6s}
 .s-card:hover .im img{transform:scale(1.06)}
-/* Карточка без фото: крупный значок на градиенте (фото добавить, когда пришлют) */
-.s-card .im.gr{display:grid;place-items:center;background:radial-gradient(70% 90% at 30% 20%,rgba(166,107,255,.35),transparent 70%),linear-gradient(160deg,#1d1828,#0f0d14)}
-.s-card .im.gr svg{width:84px;height:84px;color:#d9c7ff;opacity:.9}
+/* Карточки-иллюстрации (руль, плёнки): пока нет фото студии */
+.s-card .im.ill{display:grid;place-items:center;background:radial-gradient(60% 70% at 50% 45%,rgba(166,107,255,.22),transparent 70%),linear-gradient(160deg,#17131f,#0c0a10);background-color:#0e0c13}
+.s-card .im.ill:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:22px 22px;-webkit-mask:radial-gradient(70% 70% at 50% 50%,#000,transparent);mask:radial-gradient(70% 70% at 50% 50%,#000,transparent)}
+.wheel{width:62%;max-width:210px;position:relative;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.s-card:hover .wheel{transform:rotate(-14deg)}
+.wheel .st{animation:stitch 2.4s linear infinite}
+.wheel .st2{animation-direction:reverse}
+.wheel .nd{transform-origin:120px 120px;animation:spin360 9s linear infinite}
+@keyframes stitch{to{stroke-dashoffset:-20}}
+@keyframes spin360{to{transform:rotate(360deg)}}
+.car{width:84%;position:relative;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.car .film{animation:film 3.6s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes film{0%{transform:translateX(0)}70%,100%{transform:translateX(460px)}}
+.car .zone circle{fill:var(--acc);transform-box:fill-box;transform-origin:center;animation:zone 2.4s ease-out infinite}
+.car .zone circle:nth-child(2){animation-delay:.6s}.car .zone circle:nth-child(3){animation-delay:1.2s}
+@keyframes zone{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}
+.opts{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.opts span{font:600 12px var(--b);padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(6px);color:#e4dcf2}
 .svc-tag{position:absolute;top:14px;left:14px;z-index:2;font:700 11px var(--b);letter-spacing:.12em;text-transform:uppercase;background:var(--acc);color:var(--accInk);border-radius:999px;padding:6px 11px}
 .s-card .bd{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
 .s-card h3{font:800 22px/1.2 var(--d);text-transform:uppercase}
@@ -156,8 +180,20 @@ h2 em{font-style:normal;color:var(--dim)}
 .s-card .pr{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--line);font:700 16px var(--b)}
 .s-card .pr a{font-size:14px;color:var(--dim)}
 .s-card .pr a:hover{color:var(--ink)}
-.more-svc{margin-top:22px;color:var(--dim);font-size:15px}
-.more-svc b{color:var(--ink);font-weight:600}
+/* Ещё услуги: плитки */
+.more{margin-top:56px}
+.more-h{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.more-h h3{font:900 clamp(24px,2.6vw,32px)/1.1 var(--d);text-transform:uppercase}
+.more-h p{color:var(--dim);font-size:15.5px;max-width:460px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tile{position:relative;text-align:left;display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:auto auto;align-items:center;gap:2px 14px;padding:18px 18px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .25s,border-color .25s,background .25s}
+.tile i{grid-row:1/3;font-style:normal;font-size:22px;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--accSoft);border:1px solid rgba(166,107,255,.3)}
+.tile b{font:700 15.5px/1.25 var(--b)}
+.tile small{grid-column:2;color:var(--dim);font-size:13px;line-height:1.35}
+.tile:after{content:"→";grid-row:1/3;grid-column:3;color:var(--dim);transition:transform .25s,color .25s}
+.tile:hover{transform:translateY(-3px);border-color:rgba(166,107,255,.55);background:#1b1724}
+.tile:hover:after{transform:translateX(4px);color:var(--acc)}
+.tile.gift{grid-column:span 2;background:linear-gradient(120deg,rgba(166,107,255,.22),rgba(166,107,255,.04) 60%),var(--card);border-color:rgba(166,107,255,.4)}
 
 /* Работы */
 .gal{columns:4 240px;column-gap:14px}
@@ -272,7 +308,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 @media (max-width:1080px){
   header nav{display:none}
   .hero .wrap{grid-template-columns:1fr;gap:36px}
-  .vis{height:560px}
+  .vis{height:540px}
+  .hero-bg img{object-position:60% 50%}
+  .hero-bg:after{background:linear-gradient(180deg,rgba(8,7,11,.9) 0%,rgba(8,7,11,.84) 55%,rgba(8,7,11,.55) 72%,var(--bg) 90%)}
   .svc,.rev{grid-template-columns:1fr 1fr}
   .night{grid-template-columns:1fr;gap:40px}
   .steps{grid-template-columns:1fr 1fr;gap:28px}
@@ -299,11 +337,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .chips button{font-size:13px;padding:8px 12px}
   .qc .res{grid-template-columns:1fr}
   .qc .go .btn{flex:1;padding:14px 10px}
-  .vis{height:470px}
-  .ph{inset:0;border-radius:24px}
-  .thumbs{display:none}
-  .tag{left:14px;top:14px}
-  .quote{left:12px;right:12px;bottom:12px;padding:14px 16px}
+  .vis{height:430px}
+  .tag{right:auto;left:0;top:0}
+  .f1{width:46%;height:220px;left:0;top:50px}
+  .f2{width:42%;height:190px;right:0;top:70px}
+  .f3{display:none}
+  .quote{left:0;right:0;bottom:0;padding:14px 16px}
   .quote p{font-size:14.5px}
   .svc,.rev,.perks,.contact{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
@@ -318,7 +357,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   .pin .lbl{left:72px}
   .faq summary{font-size:16px}
   body{padding-bottom:84px}
-  .dock{display:grid;grid-template-columns:1fr 1fr 56px;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px var(--pad) max(10px,env(safe-area-inset-bottom));background:rgba(9,8,12,.96);border-top:1px solid var(--line)}
+  .dock{display:grid;grid-template-columns:1fr 56px;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px var(--pad) max(10px,env(safe-area-inset-bottom));background:rgba(9,8,12,.96);border-top:1px solid var(--line)}
   .dock .btn{padding:14px 10px;font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -326,6 +365,72 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   *,*:before,*:after{animation:none!important;transition:none!important}
   .js [data-rv]{opacity:1;transform:none}
 }
+
+/* ===== Блестящая кнопка (Shiny): по рамке бежит блик, внутри мерцают точки ===== */
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+.btn.shiny{position:relative;isolation:isolate;color:#fff;border:1.5px solid transparent;
+  background:linear-gradient(#1a1030,#1a1030) padding-box,conic-gradient(from var(--a),rgba(166,107,255,.25) 0%,rgba(166,107,255,.25) 60%,#c49bff 75%,#fff 80%,#c49bff 85%,rgba(166,107,255,.25) 100%) border-box;
+  box-shadow:0 0 0 1px rgba(166,107,255,.15),0 16px 44px -14px rgba(166,107,255,.9),inset 0 0 22px rgba(166,107,255,.35);animation:spinA 3s linear infinite}
+.btn.shiny:before{content:"";position:absolute;inset:2px;z-index:-1;border-radius:inherit;background:radial-gradient(circle at 2px 2px,rgba(255,255,255,.55) .6px,transparent 1.2px) 0 0/6px 6px;-webkit-mask:conic-gradient(from calc(var(--a) + 45deg),transparent 0 70%,#000 85%,transparent 100%);mask:conic-gradient(from calc(var(--a) + 45deg),transparent 0 70%,#000 85%,transparent 100%);animation:spinA 3s linear infinite;opacity:.8}
+.btn.shiny:after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:radial-gradient(80% 120% at 50% 120%,rgba(166,107,255,.55),transparent 70%)}
+.btn.shiny:hover{box-shadow:0 0 0 1px rgba(166,107,255,.3),0 20px 54px -10px rgba(166,107,255,1),inset 0 0 26px rgba(166,107,255,.5)}
+.btn .arr{display:inline-block;transition:transform .25s}
+.btn:hover .arr{transform:translateX(4px)}
+.btn.big{padding:18px 32px;font-size:16px}
+@keyframes spinA{to{--a:360deg}}
+/* Кнопки соцсетей в контактах */
+.btn.soc-wa{background:var(--wa);color:#04210f;box-shadow:0 14px 40px -16px var(--wa)}
+.btn.soc-tg{background:#2aabee;color:#fff;box-shadow:0 14px 40px -16px #2aabee}
+
+/* ===== Луч по рамке (Border Beam): светящаяся точка бежит по краю карточки ===== */
+:where(.beam){position:relative}
+.beam:before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:1;
+  background:conic-gradient(from var(--a),transparent 0%,transparent 78%,rgba(166,107,255,.9) 88%,#fff 92%,rgba(166,107,255,.9) 95%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:spinA 6s linear infinite}
+.qc.beam:before{animation-duration:7s}
+.promo.beam{border-style:solid;border-color:rgba(166,107,255,.25)}
+.promo.beam:before{animation-duration:4s}
+.box.beam:before{animation-duration:8s}
+.tile.beam:before{animation-duration:5s}
+
+/* ===== Окно записи ===== */
+.cm{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(5,4,8,.72);backdrop-filter:blur(8px);opacity:0;transition:opacity .25s}
+.cm.on{opacity:1}
+.cm[hidden]{display:none}
+.cm-card{width:100%;max-width:440px;background:linear-gradient(180deg,#1a1523,#121018);border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:28px 24px 22px;box-shadow:0 60px 120px -30px rgba(0,0,0,.9),0 0 80px -30px rgba(166,107,255,.6);transform:translateY(16px) scale(.97);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.cm.on .cm-card{transform:none}
+.cm-x{position:absolute;top:14px;right:14px;z-index:2;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font-size:22px;cursor:pointer}
+.cm-card h3{font:900 26px/1.1 var(--d);text-transform:uppercase;margin:12px 0 8px;padding-right:30px}
+.cm-s{color:var(--dim);font-size:14.5px;margin-bottom:16px}
+.cm-msg{border:1px dashed var(--line);border-radius:14px;padding:10px 14px;margin-bottom:16px;font-size:13.5px;color:#d9d5e0;line-height:1.45}
+.cm-msg small{display:block;color:var(--dim);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.soc{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:14px;padding:12px 16px 12px 12px;border-radius:18px;margin-top:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);transition:transform .2s,background .2s,border-color .2s}
+.soc i{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;color:#fff}
+.soc i svg{width:26px;height:26px}
+.soc b{display:block;font:700 17px var(--b)}
+.soc small{color:var(--dim);font-size:13px}
+.soc em{font-style:normal;color:var(--dim);font-size:20px;transition:transform .2s}
+.soc:hover{transform:translateY(-2px)}
+.soc:hover em{transform:translateX(4px);color:#fff}
+.soc.tg i{background:linear-gradient(160deg,#37bbfe,#1d93d2);box-shadow:0 10px 24px -8px #2aabee}
+.soc.tg:hover{border-color:#2aabee;background:rgba(42,171,238,.1)}
+.soc.wa i{background:linear-gradient(160deg,#5ff07e,#1fb855);box-shadow:0 10px 24px -8px #25d366}
+.soc.wa:hover{border-color:#25d366;background:rgba(37,211,102,.1)}
+.soc.ph i{background:#2a2433}
+.soc.ph:hover{border-color:rgba(255,255,255,.3)}
+.qc .res .btn.shiny{padding:16px 24px}
+
+@media (max-width:1080px){.tiles{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){
+  .tiles{grid-template-columns:1fr}.tile.gift{grid-column:auto}
+  .qc .res .btn.shiny{width:100%}
+  .cm{align-items:flex-end;padding:0}
+  .cm-card{max-width:none;border-radius:26px 26px 0 0;padding:24px 18px max(20px,env(safe-area-inset-bottom))}
+  .cm-card h3{font-size:22px}
+  .btn.big{width:100%}
+}
+@media (prefers-reduced-motion:reduce){.hero-bg img{transform:none}}
 </style>
 </head>
 <body>
@@ -333,22 +438,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div class="wrap">
     <a href="#top" class="logo"><img class="lg-img" src="img/logo.jpg" alt="" width="40" height="40"><span><b>002</b> Detailing</span></a>
     <nav><a href="#night">24/7</a><a href="#services">Услуги</a><a href="#works">Работы</a><a href="#prices">Цены</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
-    <div class="r"><a class="ph-n" href="tel:+79859551598">+7 (985) 955-15-98</a><a class="btn acc" href="#calc">Записаться</a></div>
+    <div class="r"><a class="ph-n" href="tel:+79859551598">+7 (985) 955-15-98</a><button class="btn shiny" data-book>Записаться</button></div>
   </div>
 </header>
 
 <main id="top">
 <!-- ===== HERO ===== -->
 <section class="hero">
+  <!-- Фон первого экрана: ночное фото студии -->
+  <div class="hero-bg" aria-hidden="true"><img src="img/p01.jpg" alt="" fetchpriority="high"></div>
   <div class="wrap">
     <div>
       <a class="pill" href="https://yandex.ru/maps/org/223064300030/reviews/" target="_blank" rel="noopener"><span class="st">★&nbsp;5,0</span><span>32 оценки на Яндекс Картах<span class="hm"> · Мытищи</span></span></a>
       <h1>Детейлинг <em>круглосуточно</em></h1>
       <p class="lead">Химчистка, полировка кузова и фар, керамика, перешив руля и плёнки. Пригоните вечером, заберите утром. Пока работаем, есть где подождать с кофе и Wi‑Fi.</p>
-      <div class="promo">🎉 <span>Мы только открылись: <b>скидки на открытие</b>, спросите при записи</span></div>
+      <div class="promo beam">🎉 <span>Мы только открылись: <b>скидки на открытие</b>, спросите при записи</span></div>
 
       <!-- Калькулятор. Цены в скрипте, блок PRICE -->
-      <div class="qc" id="calc">
+      <div class="qc beam" id="calc">
         <div class="top"><b>Цена для вашей машины за 30 секунд</b><small>примерный расчёт</small></div>
         <div class="q">Ваша машина</div>
         <div class="seg" id="body"></div>
@@ -357,20 +464,19 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
         <div class="xt"><div class="q">Добавить по желанию</div><div class="chips" id="svcs"></div></div>
         <div class="res">
           <div><div class="tot" id="tot">0 ₽</div><small>точную цену назовём до начала работ</small></div>
-          <div class="go">
-            <a class="btn wa" id="calcWa" href="#" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="btn acc" id="calcTg" href="#" target="_blank" rel="noopener">Telegram</a>
-          </div>
+          <button class="btn shiny" id="calcBook">Записаться на эту сумму <span class="arr">→</span></button>
         </div>
       </div>
       <div class="trust"><span class="live">Открыто сейчас · 24/7</span><span>Зона ожидания</span><span>Цена как договорились</span></div>
     </div>
 
-    <div class="vis" data-rv="zoom">
-      <div class="ph"><img src="img/p01.jpg" alt="Студия 002 Detailing ночью" fetchpriority="high"></div>
-      <div class="tag"><i></i>Студия ночью</div>
-      <div class="thumbs"><button data-g="1" aria-label="Открыть фото"><img src="img/p02.jpg" alt="BMW X5 у студии"></button><button data-g="7" aria-label="Открыть фото"><img src="img/p03.jpg" alt="Студия днём"></button></div>
-      <div class="quote"><div class="s">★★★★★</div><p>«Ребята красавчики, пригонял машину на химпол, машина стала как новая, сделали всё на высшем уровне, сдали автомобиль в срок»</p><small>Кирилл С. · отзыв на Яндекс Картах</small></div>
+    <!-- Справа: парящие фото работ поверх фона + отзыв -->
+    <div class="vis">
+      <span class="tag"><i></i>Студия ночью · Виноградово</span>
+      <button class="fl f1" data-g="1" aria-label="Открыть фото"><img src="img/p02.jpg" alt="BMW X5 у студии"></button>
+      <button class="fl f2" data-g="3" aria-label="Открыть фото"><img src="img/p04.jpg" alt="BMW ночью"></button>
+      <button class="fl f3" data-g="6" aria-label="Открыть фото"><img src="img/p08.jpg" alt="Полировка фары"></button>
+      <div class="quote beam"><div class="s">★★★★★</div><p>«Ребята красавчики, пригонял машину на химпол, машина стала как новая, сделали всё на высшем уровне, сдали автомобиль в срок»</p><small>Кирилл С. · отзыв на Яндекс Картах</small></div>
     </div>
   </div>
 </section>
@@ -418,19 +524,59 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
       <article class="s-card" data-rv style="--dl:.16s"><div class="im"><img src="img/p08.jpg" alt="Полировка фар Mini" loading="lazy"></div><div class="bd">
         <h3>Полировка фар</h3><p>Мутные и жёлтые фары снова прозрачные. «Стали светить процентов на 70 лучше», пишут клиенты.</p>
         <div class="pr"><span data-p="Полировка фар"></span><a href="#calc">Рассчитать →</a></div></div></article>
-      <article class="s-card" data-rv><div class="im gr"><span class="svc-tag">Редкая услуга</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 14.5V21M9.6 11.3 3.4 9.6M14.4 11.3l6.2-1.7"/><path d="M5 5.5 6 6.5M19 5.5l-1 1M3.2 13.5h1.2M19.6 13.5h1.2" opacity=".6"/></svg></div><div class="bd">
+      <!-- Иллюстрация: руль, строчка «прошивается» по кругу. Когда пришлют фото руля — заменить на <img> -->
+      <article class="s-card" data-rv><div class="im ill"><span class="svc-tag">Редкая услуга</span>
+        <svg class="wheel" viewBox="0 0 240 240" aria-hidden="true">
+          <defs>
+            <radialGradient id="lth" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#3a3346"/><stop offset=".6" stop-color="#1b1722"/><stop offset="1" stop-color="#0c0a10"/></radialGradient>
+            <pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".7" fill="#fff" opacity=".06"/><circle cx="4.5" cy="4" r=".6" fill="#000" opacity=".25"/></pattern>
+          </defs>
+          <circle cx="120" cy="120" r="92" fill="none" stroke="url(#lth)" stroke-width="26"/>
+          <circle cx="120" cy="120" r="92" fill="none" stroke="url(#grain)" stroke-width="26"/>
+          <path d="M120 120 L40 104 M120 120 L200 104 M120 120 L120 206" stroke="#1d1924" stroke-width="20" stroke-linecap="round"/>
+          <circle cx="120" cy="120" r="30" fill="#17141d" stroke="#2c2636" stroke-width="2"/>
+          <text x="120" y="126" text-anchor="middle" font-family="Inter Tight,Inter,sans-serif" font-weight="900" font-size="15" fill="#d9c7ff">002</text>
+          <circle class="st st1" cx="120" cy="120" r="102" fill="none" stroke="#c49bff" stroke-width="1.6" stroke-dasharray="5 5" stroke-linecap="round"/>
+          <circle class="st st2" cx="120" cy="120" r="82" fill="none" stroke="#c49bff" stroke-width="1.6" stroke-dasharray="5 5" stroke-linecap="round"/>
+          <g class="nd"><circle cx="120" cy="18" r="4" fill="#fff"/><circle cx="120" cy="18" r="9" fill="#c49bff" opacity=".35"/></g>
+        </svg>
+        <div class="opts"><span>Кожа</span><span>Алькантара</span><span>Цвет нитки</span></div></div><div class="bd">
         <h3>Перешив руля</h3><p>Новая кожа на старый руль: без потёртостей, с нужной строчкой и цветом нитки. Руль как из салона.</p>
         <div class="pr"><span data-p="Перешив руля"></span><a href="#calc">Рассчитать →</a></div></div></article>
-      <article class="s-card" data-rv style="--dl:.08s"><div class="im gr">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8.1 7.5 9.5 4.4-1.4 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></svg></div><div class="bd">
+      <!-- Иллюстрация: силуэт машины, по нему проходит глянцевая плёнка; точки — зоны оклейки -->
+      <article class="s-card" data-rv style="--dl:.08s"><div class="im ill">
+        <svg class="car" viewBox="0 0 320 150" aria-hidden="true">
+          <defs>
+            <clipPath id="carC"><path d="M18 104 C16 88 26 80 46 76 L92 70 L128 44 C140 36 152 34 172 34 L214 34 C232 34 244 40 256 52 L276 72 C296 76 306 84 306 98 L306 108 C306 112 302 114 298 114 L18 114 Z"/></clipPath>
+            <linearGradient id="filmG" x1="0" x2="1"><stop offset="0" stop-color="#a66bff" stop-opacity="0"/><stop offset=".45" stop-color="#c49bff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset=".55" stop-color="#c49bff" stop-opacity=".55"/><stop offset="1" stop-color="#a66bff" stop-opacity="0"/></linearGradient>
+          </defs>
+          <path d="M18 104 C16 88 26 80 46 76 L92 70 L128 44 C140 36 152 34 172 34 L214 34 C232 34 244 40 256 52 L276 72 C296 76 306 84 306 98 L306 108 C306 112 302 114 298 114 L18 114 Z" fill="#241d30" stroke="#7a68a0" stroke-width="1.5"/>
+          <path d="M104 70 L134 48 C142 42 150 41 166 41 L176 41 L176 70 Z M184 41 L212 41 C226 41 236 46 244 55 L258 70 L184 70 Z" fill="#0c0a10" stroke="#3a3346"/>
+          <g clip-path="url(#carC)"><rect class="film" x="-120" y="20" width="120" height="110" fill="url(#filmG)"/></g>
+          <g fill="#0c0a10" stroke="#3a3346" stroke-width="2"><circle cx="82" cy="114" r="22"/><circle cx="252" cy="114" r="22"/></g>
+          <g fill="#2c2636"><circle cx="82" cy="114" r="9"/><circle cx="252" cy="114" r="9"/></g>
+          <g class="zone"><circle cx="296" cy="92" r="5"/><circle cx="120" cy="58" r="5"/><circle cx="230" cy="58" r="5"/></g>
+        </svg>
+        <div class="opts"><span>Антигравий</span><span>Тонировка</span><span>Бронь фар</span></div></div><div class="bd">
         <h3>Плёнки и тонировка</h3><p>Антигравийная плёнка на зоны риска, бронирование фар, тонировка и автовинил.</p>
         <div class="pr"><span data-p="Антигравий: зоны риска"></span><a href="#calc">Рассчитать →</a></div></div></article>
       <article class="s-card" data-rv style="--dl:.16s"><div class="im"><img src="img/p03.jpg" alt="Студия 002 Detailing" loading="lazy"></div><div class="bd">
         <h3>Предпродажная подготовка</h3><p>Химчистка, полировка, мелкие вмятины без покраски. Машину купят быстрее и дороже.</p>
         <div class="pr"><span data-p="Предпродажная подготовка"></span><a href="#calc">Рассчитать →</a></div></div></article>
     </div>
-    <p class="more-svc">Ещё делаем: <b>шумоизоляцию, удаление вмятин без покраски, ремонт царапин, пересвет и оклейку салона, доводчики и русификацию</b>. Есть подарочные сертификаты.</p>
+    <!-- Ещё услуги: плитки, по клику окно записи с названием услуги (data-svc) -->
+    <div class="more">
+      <div class="more-h"><h3>Ещё делаем</h3><p>Не нашли свою услугу? Нажмите на плитку, спросим про машину и назовём цену.</p></div>
+      <div class="tiles">
+        <button class="tile" data-svc="Шумоизоляция"><i>🔇</i><b>Шумоизоляция</b><small>Двери, пол, арки. В салоне тише</small></button>
+        <button class="tile" data-svc="Удаление вмятин без покраски"><i>🔨</i><b>Вмятины без покраски</b><small>Родная краска остаётся на месте</small></button>
+        <button class="tile" data-svc="Ремонт царапин"><i>✨</i><b>Ремонт царапин</b><small>Локально, без перекраса детали</small></button>
+        <button class="tile" data-svc="Пересвет и оклейка салона"><i>💡</i><b>Пересвет и оклейка салона</b><small>Подсветка, плёнка на пластик</small></button>
+        <button class="tile" data-svc="Доводчики дверей"><i>🚪</i><b>Доводчики дверей</b><small>Двери закрываются сами</small></button>
+        <button class="tile" data-svc="Русификация автомобиля"><i>🇷🇺</i><b>Русификация</b><small>Меню и навигация на русском</small></button>
+        <button class="tile gift beam" data-svc="Подарочный сертификат"><i>🎁</i><b>Подарочный сертификат</b><small>Подарок автомобилисту на любую сумму</small></button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -464,7 +610,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     </div>
     <div class="ptabs" id="ptabs"></div>
     <div class="price" id="plist"></div>
-    <p class="pmore">Не знаете, что выбрать? <a data-wa-photo href="#" target="_blank" rel="noopener">Пришлите фото машины в WhatsApp</a>, подскажем и посчитаем.</p>
+    <p class="pmore">Не знаете, что выбрать? <a href="#" data-photo>Пришлите фото машины</a> в Telegram или WhatsApp, подскажем и посчитаем.</p>
     <p class="note">Итог зависит от размера машины и состояния. Точную сумму назовём до начала работ, сейчас действуют скидки на открытие.</p>
   </div>
 </section>
@@ -544,14 +690,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
   <div class="wrap">
     <div class="head"><div><div class="num">09 · Контакты</div><h2>Ждём <em>в Виноградово</em></h2></div></div>
     <div class="contact">
-      <div class="box" data-rv>
+      <div class="box beam" data-rv>
         <div class="crow"><small>Телефон и WhatsApp</small><a href="tel:+79859551598">+7 (985) 955-15-98</a></div>
         <div class="crow"><small>Telegram</small><a data-tg href="#" target="_blank" rel="noopener">@Detailing_002</a></div>
         <div class="crow"><small>Адрес</small><span>Мытищи, село Виноградово, 38А</span></div>
         <div class="crow"><small>Режим</small><span>Круглосуточно, без выходных</span></div>
         <div class="btns">
-          <a class="btn wa" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
-          <a class="btn acc" data-tg href="#" target="_blank" rel="noopener">Telegram</a>
+          <a class="btn soc-wa" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn soc-tg" data-tg href="#" target="_blank" rel="noopener">Telegram</a>
           <a class="btn gh" href="tel:+79859551598">Позвонить</a>
         </div>
       </div>
@@ -585,9 +731,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <h2>Пригоните вечером, <em>заберите утром</em></h2>
     <p class="sub">Напишите марку машины и что нужно сделать, можно с фото. Ответим, назовём цену и время.</p>
     <div class="btns">
-      <a class="btn wa" data-wa href="#" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <a class="btn acc" data-tg href="#" target="_blank" rel="noopener">Написать в Telegram</a>
-      <a class="btn gh" href="tel:+79859551598">Позвонить</a>
+      <button class="btn shiny big" data-book>Записаться онлайн <span class="arr">→</span></button>
+      <a class="btn gh big" href="tel:+79859551598">Позвонить</a>
     </div>
   </div>
 </section>
@@ -595,9 +740,29 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 
 <footer><div class="wrap"><span>© 002 Detailing · детейлинг круглосуточно, Мытищи, Виноградово</span><span>Химчистка · Полировка · Керамика · Перешив руля · Плёнки</span></div></footer>
 
+
+<!-- ===== ОКНО ЗАПИСИ: выбор мессенджера. Открывается любой кнопкой data-book / data-svc / data-photo ===== -->
+<div class="cm" id="cm" role="dialog" aria-modal="true" aria-labelledby="cmT" hidden>
+  <div class="cm-card beam">
+    <button class="cm-x" id="cmX" aria-label="Закрыть">×</button>
+    <div class="num">Запись 24/7</div>
+    <h3 id="cmT">Куда вам удобнее написать?</h3>
+    <p class="cm-s">Сообщение уже готово, останется нажать «Отправить». Отвечаем быстро, даже ночью.</p>
+    <div class="cm-msg"><small>Ваше сообщение</small><span id="cmMsg"></span></div>
+    <a class="soc tg" id="cmTg" href="#" target="_blank" rel="noopener">
+      <i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13 1.4 11.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5Z"/></svg></i>
+      <span><b>Telegram</b><small>@Detailing_002</small></span><em>→</em></a>
+    <a class="soc wa" id="cmWa" href="#" target="_blank" rel="noopener">
+      <i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.3 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.7-.1 1.4Z"/></svg></i>
+      <span><b>WhatsApp</b><small>+7 (985) 955-15-98</small></span><em>→</em></a>
+    <a class="soc ph" href="tel:+79859551598">
+      <i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></i>
+      <span><b>Позвонить</b><small>Круглосуточно</small></span><em>→</em></a>
+  </div>
+</div>
+
 <div class="dock">
-  <a class="btn wa" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
-  <a class="btn acc" data-tg href="#" target="_blank" rel="noopener">Telegram</a>
+  <button class="btn shiny" data-book>Записаться <span class="arr">→</span></button>
   <a class="btn gh" href="tel:+79859551598" aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></a>
 </div>
 
@@ -611,7 +776,6 @@ const wa=t=>'https://wa.me/'+WA+'?text='+encodeURIComponent(t);
 const HELLO='Здравствуйте! Я с сайта, хочу записаться. Моя машина: ';
 document.querySelectorAll('[data-tg]').forEach(a=>a.href=tg(HELLO));
 document.querySelectorAll('[data-wa]').forEach(a=>a.href=wa(HELLO));
-document.querySelectorAll('[data-wa-photo]').forEach(a=>a.href=wa('Здравствуйте! Я с сайта. Пришлю фото машины, подскажите, что нужно и сколько будет стоить. Моя машина: '));
 
 /* ===== PRICE: ОРИЕНТИРЫ, прайс студии ещё не прислали. Поменять на их цены.
    [название, цена для седана, группа, пояснение, 1 = цена зависит от размера машины] ===== */
@@ -641,7 +805,7 @@ const PK=[
   ['Блеск надолго','Полировка и керамика',['Полировка кузова','Керамическое покрытие']],
 ];
 const EX=['Перешив руля','Полировка фар','Химчистка потолка','Бронирование фар'];
-let bd=0,pk=1,shown=0;const ex=new Set();
+let bd=0,pk=1,shown=0,calcMsg='';const ex=new Set();
 const $=id=>document.getElementById(id);
 const fmt=n=>n.toLocaleString('ru-RU').replace(/ |,/g,' ');
 const price=n=>{const s=P(n);return Math.round(s[1]*(s[4]?BODY[bd][1]:1)/100)*100};
@@ -653,7 +817,7 @@ function calc(){
   const items=[...PK[pk][2],...ex],sum=items.reduce((a,n)=>a+price(n),0);
   anim(sum);
   const msg=`Здравствуйте! Я с сайта. ${BODY[bd][0]}, хочу «${PK[pk][0]}»: ${items.map(s=>s.toLowerCase()).join(', ')} ≈ ${fmt(sum)} ₽. Моя машина: `;
-  $('calcWa').href=wa(msg);$('calcTg').href=tg(msg);
+  calcMsg=msg;
 }
 function anim(to){
   const from=shown,t0=performance.now(),dur=matchMedia('(prefers-reduced-motion:reduce)').matches?0:450;
@@ -686,6 +850,23 @@ lbx.querySelector('.p').onclick=e=>{e.stopPropagation();show(gi-1)};
 lbx.querySelector('.n').onclick=e=>{e.stopPropagation();show(gi+1)};
 lbx.addEventListener('click',e=>{if(e.target===lbx)lbx.classList.remove('on')});
 addEventListener('keydown',e=>{if(!lbx.classList.contains('on'))return;if(e.key==='Escape')lbx.classList.remove('on');if(e.key==='ArrowLeft')show(gi-1);if(e.key==='ArrowRight')show(gi+1)});
+
+
+/* ===== Окно записи: выбор Telegram / WhatsApp / звонок, сообщение подставляется ===== */
+const cm=$('cm');let lastFocus=null;
+function book(msg){
+  msg=msg||HELLO;$('cmMsg').textContent=msg;$('cmTg').href=tg(msg);$('cmWa').href=wa(msg);
+  lastFocus=document.activeElement;cm.hidden=false;requestAnimationFrame(()=>cm.classList.add('on'));document.body.style.overflow='hidden';$('cmX').focus();
+}
+function unbook(){cm.classList.remove('on');document.body.style.overflow='';setTimeout(()=>{cm.hidden=true},250);lastFocus&&lastFocus.focus()}
+document.querySelectorAll('[data-book]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();book()}));
+document.querySelectorAll('[data-svc]').forEach(b=>b.onclick=()=>book('Здравствуйте! Я с сайта. Интересует: '+b.dataset.svc.toLowerCase()+'. Моя машина: '));
+document.querySelectorAll('[data-photo]').forEach(b=>b.onclick=e=>{e.preventDefault();book('Здравствуйте! Я с сайта. Пришлю фото машины, подскажите, что нужно и сколько будет стоить. Моя машина: ')});
+$('calcBook').onclick=()=>book(calcMsg);
+$('cmX').onclick=unbook;
+cm.addEventListener('click',e=>{if(e.target===cm)unbook()});
+cm.querySelectorAll('.soc').forEach(a=>a.addEventListener('click',()=>setTimeout(unbook,300)));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!cm.hidden)unbook()});
 
 /* Живая карта Яндекса подгружается только по кнопке */
 const map=$('map');
